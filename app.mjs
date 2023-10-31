@@ -160,10 +160,12 @@ const main = async function() {
 				save_state_async(batched_ids, queue.state.FAILED);
 			}
 		} catch (err) {
+                        console.log(err);
 			let tezos_error = null;
 			if (TezosOperationError.prototype.isPrototypeOf(err)) {
 				tezos_error = postprocess_error_object(err);
 			} else {
+				console.error(err.body);
 				tezos_error = parse_rpc_error(err.body);
 			}
 			if (tezos_error) {

@@ -14,7 +14,8 @@ export default async function(tezos, { contract_address }) {
 	let contract_ops = {
 		create_token: nft_contract.methods.create_token,
 		mint_tokens: nft_contract.methods.mint_tokens,
-		transfer_tokens: nft_contract.methods.transfer
+		transfer_tokens: nft_contract.methods.transfer,
+		burn_tokens: nft_contract.methods.burn_tokens
 	}
 
 	// Object.entries(contract_ops).forEach(([key, value]) => {
@@ -42,7 +43,7 @@ export default async function(tezos, { contract_address }) {
 
 	let burn_token = function(token_id, from_address, amount = 1) {
 		if (typeof contract_ops.burn_tokens != 'function') {
-			throw new Error("No mint_tokens entrypoint on contract");
+			throw new Error("No burn_tokens entrypoint on contract");
 		}
 		let burn_op = contract_ops.burn_tokens([{ owner: from_address, token_id, amount }]);
 		return burn_op;
